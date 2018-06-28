@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load mathfilters %}
 <html>
 <head>
 <title>mysite</title>
@@ -10,16 +11,16 @@
 		<div id="header">
 			<h1>MySite</h1>
 			<ul>
-				<li><a href="">로그인</a><li>
-				<li><a href="">회원가입</a><li>
-				<li><a href="">회원정보수정</a><li>
-				<li><a href="">로그아웃</a><li>
+				<li><a href="/user/login">로그인</a><li>
+				<li><a href="/user/join">회원가입</a><li>
+				<li><a href="/user/modify">회원정보수정</a><li>
+				<li><a href="/user/logout">로그아웃</a><li>
 				<li>님 안녕하세요 ^^;</li>
 			</ul>
 		</div>
 		<div id="content">
 			<div id="guestbook">
-				<form action="/guestbook" method="post">
+				<form action="guestbook/add" method="post">{% csrf_token %}
 					<input type="hidden" name="a" value="insert">
 					<table>
 						<tr>
@@ -34,22 +35,23 @@
 						</tr>
 					</table>
 				</form>
+				{% for guestbook in guestbook_list %}
 				<ul>
 					<li>
 						<table>
 							<tr>
-								<td>[4]</td>
-								<td>안대혁</td>
-								<td>2015-11-10 11:22:30</td>
-								<td><a href="">삭제</a></td>
+								<td>{{ guestbook_list.count | add:1 | sub:forloop.counter}}</td>
+								<td>{{guestbook.name}}</td>
+								<td>{{guestbook.regdate | date:'Y-m-d H:i:s'}}</td>
+								<td><a href="/guestbook/deleteform?id={{guestbook.id}}">삭제</a></td>
 							</tr>
 							<tr>
 								<td colspan=4>
-								안녕하세요. ^^;<br>
-								하하하하	
+								{{guestbook.message | linebreaksbr}}
 								</td>
 							</tr>
 						</table>
+						{% endfor %}
 						<br>
 					</li>
 				</ul>
@@ -57,9 +59,9 @@
 		</div>
 		<div id="navigation">
 			<ul>
-				<li><a href="">안대혁</a></li>
-				<li><a href="">방명록</a></li>
-				<li><a href="">게시판</a></li>
+				<li><a href="/">안대혁</a></li>
+				<li><a href="/guestbook">방명록</a></li>
+				<li><a href="/board">게시판</a></li>
 			</ul>
 		</div>
 		<div id="footer">
