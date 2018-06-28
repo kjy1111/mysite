@@ -20,7 +20,7 @@
 		</div>
 		<div id="content">
 			<div id="guestbook">
-				<form action="guestbook/add" method="post">{% csrf_token %}
+				<form action="/guestbook/add" method="post">{% csrf_token %}
 					<input type="hidden" name="a" value="insert">
 					<table>
 						<tr>

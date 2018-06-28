@@ -24,9 +24,14 @@ def add(request):
 
 
 def deleteform(request):
-    print(request)
-    return render(request, 'guestbook/deleteform.html')
+    guest_id = request.GET['id']
+    context = {'guest_id': guest_id}
+    return render(request, 'guestbook/deleteform.html', context)
 
 
 def delete(request):
-    pass
+    guest_id = request.POST['no']
+    guest_pw = request.POST['password']
+    Guestbook.objects.filter(id=guest_id).filter(password=guest_pw).delete()
+
+    return HttpResponseRedirect('/guestbook')
