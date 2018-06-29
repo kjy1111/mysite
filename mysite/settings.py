@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mathfilters',
     'main',
-    'guestbook'
+    'guestbook',
+    'board',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -126,3 +128,6 @@ USE_TZ = True
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'statics'),)
 STATIC_URL = '/assets/'
+
+# session
+SESSION_EXPIRE_AT_BROEWSER_CLOSE = True     # 브라우저가 졸요된 경우 초기화
