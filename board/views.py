@@ -57,20 +57,21 @@ def modifyform(request):
     id = request.GET['id']
     board = Board.objects.get(id=id)
     user_id = request.session['authuser']['id']
-    print(board.user_id)
-    print(user_id)
+    # print(board.user_id)
+    # print(user_id)
     if board.user_id == user_id:
         context = {'board': board}
         return render(request, 'board/modify.html', context)
     else:
         return HttpResponseRedirect('/board')
 
+
 def delete(request):
     id = request.GET['id']
-    board = Board.objects.get(id=id)
-    print(board.user_id)
+    # board = Board.objects.get(id=id)
+    # print(board.user_id)
     user_id = request.session['authuser']['id']
-    print(user_id)
+    # print(user_id)
     Board.objects.filter(id=id).filter(user_id=user_id).delete()
 
     return HttpResponseRedirect('/board')
