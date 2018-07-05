@@ -24,8 +24,10 @@ def add(request):
 
 
 def deleteform(request):
+    print(request)
     guest_id = request.GET['id']
     context = {'guest_id': guest_id}
+
     return render(request, 'guestbook/deleteform.html', context)
 
 
